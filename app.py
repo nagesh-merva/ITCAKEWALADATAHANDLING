@@ -1,13 +1,13 @@
-# app.py
 
 from flask import Flask, render_template, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from flask_cors import CORS  # Import CORS from flask_cors
+from flask_cors import CORS 
+import os
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ordersDATA.db?check_same_thread=False&uri=true'
+CORS(app) 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.getcwd(), 'ordersDATA.db?check_same_thread=False&uri=true')
 
 db = SQLAlchemy(app)
 
