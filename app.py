@@ -47,7 +47,7 @@ def save_form_data():
         message=data['message'],
         product_name=data['productNametxt'],
         product_price=data['productPricetxt'],
-        action=data['action']
+        action=data.get('action', 'default_action')
     )
 
     try:
