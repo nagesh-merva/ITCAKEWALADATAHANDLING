@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block head %}
+<title>IT Cake Wala Orders Manager</title>
+{% endblock %} {% block body %}
+<div class="content">
+  <h1>IT Cake Wala - Orders Data</h1>
+
+  {% if tasks|length < 1 %}
+  <h1>There are No Orders</h1>
+  {% else %}
+  <table>
+    <tr>
+      <th>Location</th>
+      <th>Contact</th>
+      <th>Delivery Date</th>
+      <th>With Egg</th>
+      <th>Eggless</th>
+      <th>Message</th>
+      <th>Product Name</th>
+      <th>Product Price</th>
+      <th>Action</th>
+      <th>Added</th>
+    </tr>
+    {% for task in tasks %}
+    <tr id="{{ task.id }}">
+      <td>{{ task.location }}</td>
+      <td>{{ task.contact}}</td>
+      <td>{{ task.date }}</td>
+      <td>{{ task.with_egg }}</td>
+      <td>{{ task.eggless }}</td>
+      <td>{{ task.message }}</td>
+      <td>{{ task.product_name }}</td>
+      <td>{{ task.product_price }}</td>
+      <td>{{ task.action }}</td>
+      <td>{{ task.date_created.date() }}</td>
+      <td>
+        {% if task.action == 'buy' %}
+        <button onclick="orderFulfilled('{{ task.id }}')">
+          Order Fulfilled
+        </button>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+</div>
+<script>
+  function orderFulfilled(taskId) {
+    var row = document.getElementById(taskId);
+    row.style.backgroundColor = "#C8E6C9";
+    row.querySelector("button").style.display = "none";
+    alert("Order fulfilled successfully!");
+  }
+</script>
+{% endblock %}
