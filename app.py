@@ -59,8 +59,7 @@ def save_form_data():
         db.session.rollback()
         return jsonify({"message": "Failed to add form data to the database"}), 500
     
-with app.app_context():
-    db.create_all()    
+    
 #****** DONT TOUCH ********** for use of deleting the database ****** DONT TOUCH **********
 # @app.route('/api/empty_database', methods=['POST'])
 # def empty_database():
