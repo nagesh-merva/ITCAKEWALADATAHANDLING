@@ -6,7 +6,7 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app, supports_credentials=True, allow_headers=["Content-Type"], methods=["OPTIONS", "POST"]) 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ordersDATA.db?check_same_thread=False&uri=true'
 
 db = SQLAlchemy(app)
@@ -47,7 +47,7 @@ def save_form_data():
         message=data['message'],
         product_name=data['productNametxt'],
         product_price=data['productPricetxt'],
-        action=data.get('action', 'default_action')
+        action=data['action']
     )
 
     try:
@@ -71,8 +71,9 @@ def save_form_data():
 #         print(f"Error: {e}")
 #         db.session.rollback()
 #         return jsonify({"message": "Failed to empty the database"}), 500
+
 with app.app_context():
-        db.create_all()
+    db.create_all()
 
 @app.errorhandler(500)
 def internal_server_error(e):
