@@ -71,7 +71,8 @@ def save_form_data():
 #         print(f"Error: {e}")
 #         db.session.rollback()
 #         return jsonify({"message": "Failed to empty the database"}), 500
-
+with app.app_context():
+        db.create_all()
 
 @app.errorhandler(500)
 def internal_server_error(e):
