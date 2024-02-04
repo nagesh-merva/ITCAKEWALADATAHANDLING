@@ -7,7 +7,8 @@ import os
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, allow_headers=["Content-Type"], methods=["OPTIONS", "POST"]) 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ordersDATA.db?check_same_thread=False&uri=true'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ordersDATA.db'
+
 
 db = SQLAlchemy(app)
 
