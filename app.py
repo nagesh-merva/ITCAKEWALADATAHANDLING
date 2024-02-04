@@ -33,8 +33,10 @@ def index():
     tasks = Todo.query.order_by(Todo.date_created.desc()).all()
     return render_template('index.html', tasks=tasks)
 
-@app.route('/api/save_form_data', methods=['POST'])
+@app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
 def save_form_data():
+    if request.method == 'OPTIONS':
+        return jsonify({"message": "Preflight request handled"}), 200
     data = request.json
     print("Received form data:", data) 
 
