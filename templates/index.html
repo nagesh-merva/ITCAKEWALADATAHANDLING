@@ -26,8 +26,8 @@
       <td>{{ task.contact}}</td>
       <td>{{ task.date }}</td>
       <td>{{ task.with_egg }}</td>
-      <td>{{ task.eggless }}</td>
-      <td>{{ task.message }}</td>
+      <td>{{ "Yes" if task.with_egg else "No" }}</td>
+      <td>{{ "Yes" if task.eggless else "No" }}</td>
       <td>{{ task.product_name }}</td>
       <td>{{ task.product_price }}</td>
       <td>{{ task.action }}</td>

@@ -6,7 +6,6 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app, supports_credentials=True, allow_headers=["Content-Type"], methods=["OPTIONS", "POST"])
 
-# Set your MongoDB Atlas connection string here
 mongo_uri = 'mongodb+srv://ITcakewala_data:hP6XmyvfGtWtjWsL@cluster0.inknx40.mongodb.net/?retryWrites=true&w=majority'
 client = MongoClient(mongo_uri)
 db = client['ITcakewaladatabase']
@@ -19,9 +18,10 @@ class Todo:
     def save(self):
         self.collection.insert_one(self.data)
 
-@app.route('/')
 def index():
-    tasks = db.todos.find().sort('date_created', -1)
+    tasks_cursor = Todo.query.order_by(Todo.date_created.desc())
+    tasks = list(tasks_cursor)
+    
     return render_template('index.html', tasks=tasks)
 
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
