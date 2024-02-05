@@ -1,8 +1,7 @@
 from flask import Flask, render_template, jsonify, request
+from flask_cors import CORS
 from pymongo import MongoClient
 from datetime import datetime
-from flask_cors import CORS
-import os
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, allow_headers=["Content-Type"], methods=["OPTIONS", "POST"])
@@ -12,7 +11,6 @@ mongo_uri = 'mongodb+srv://ITcakewala_data:hP6XmyvfGtWtjWsL@cluster0.inknx40.mon
 client = MongoClient(mongo_uri)
 db = client['ITcakewaladatabase']
 
-# Your Todo model definition
 class Todo:
     def __init__(self, data):
         self.collection = db['todos']
@@ -52,6 +50,3 @@ def save_form_data():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"message": "Failed to add form data to the database"}), 500
-
-if __name__ == '__main__':
-    app.run(debug=True)
